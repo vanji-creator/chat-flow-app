@@ -1,20 +1,18 @@
 // src/components/FlowBuilder.tsx
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from "react";
 import ReactFlow, {
   addEdge,
   Background,
   Controls,
   MiniMap,
-  applyEdgeChanges,
-  applyNodeChanges,
   Node,
   Edge,
   Connection,
   OnConnect,
   useNodesState,
   useEdgesState,
-} from 'reactflow';
-import 'reactflow/dist/style.css';
+} from "reactflow";
+import "reactflow/dist/style.css";
 
 let id = 0;
 const getId = () => `node_${id++}`;
@@ -22,8 +20,8 @@ const getId = () => `node_${id++}`;
 const initialNodes: Node[] = [
   {
     id: getId(),
-    type: 'input',
-    data: { label: 'Start' },
+    type: "input",
+    data: { label: "Start" },
     position: { x: 250, y: 0 },
   },
 ];
@@ -32,18 +30,20 @@ const FlowBuilder = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
-  const [nodeLabel, setNodeLabel] = useState<string>('');
+  const [nodeLabel, setNodeLabel] = useState<string>("");
 
   const onConnect: OnConnect = useCallback(
     (params: Edge | Connection) => {
       const sourceExists = edges.some(
-        (edge) => edge.source === params.source && edge.sourceHandle === params.sourceHandle
+        (edge) =>
+          edge.source === params.source &&
+          edge.sourceHandle === params.sourceHandle
       );
 
       if (!sourceExists) {
         setEdges((eds) => addEdge(params, eds));
       } else {
-        alert('A source handle can only have one edge originating from it.');
+        alert("A source handle can only have one edge originating from it.");
       }
     },
     [edges]
@@ -52,13 +52,14 @@ const FlowBuilder = () => {
   const onNodeClick = (event: React.MouseEvent, node: Node) => {
     setSelectedNode(node);
     setNodeLabel(node.data.label);
+    console.log(event);
   };
 
   const addTextNode = () => {
     const newNode: Node = {
       id: getId(),
-      type: 'default',
-      data: { label: 'Text Node' },
+      type: "default",
+      data: { label: "Text Node" },
       position: { x: Math.random() * 600, y: Math.random() * 400 },
     };
     setNodes((nds) => [...nds, newNode]);
@@ -71,7 +72,9 @@ const FlowBuilder = () => {
     if (selectedNode) {
       setNodes((nds) =>
         nds.map((node) =>
-          node.id === selectedNode.id ? { ...node, data: { ...node.data, label: newLabel } } : node
+          node.id === selectedNode.id
+            ? { ...node, data: { ...node.data, label: newLabel } }
+            : node
         )
       );
     }
@@ -80,16 +83,21 @@ const FlowBuilder = () => {
   const deleteNode = () => {
     if (selectedNode) {
       setNodes((nds) => nds.filter((node) => node.id !== selectedNode.id));
-      setEdges((eds) => eds.filter((edge) => edge.source !== selectedNode.id && edge.target !== selectedNode.id));
+      setEdges((eds) =>
+        eds.filter(
+          (edge) =>
+            edge.source !== selectedNode.id && edge.target !== selectedNode.id
+        )
+      );
       setSelectedNode(null);
-      setNodeLabel('');
+      setNodeLabel("");
     }
   };
 
   const saveFlow = () => {
     const flow = { nodes, edges };
-    console.log('Saved Flow:', flow);
-    alert('Flow saved to console');
+    console.log("Saved Flow:", flow);
+    alert("Flow saved to console");
   };
 
   useEffect(() => {
@@ -120,11 +128,7 @@ const FlowBuilder = () => {
       </div>
       {selectedNode && (
         <div className="settings-panel">
-          <input
-            type="text"
-            value={nodeLabel}
-            onChange={handleLabelChange}
-          />
+          <input type="text" value={nodeLabel} onChange={handleLabelChange} />
           <button onClick={deleteNode}>Delete Node</button>
         </div>
       )}
