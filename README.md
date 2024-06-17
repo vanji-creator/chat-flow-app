@@ -7,4 +7,4 @@ Basic functions:
     -save flow to the console by clicking the save flow button in the bottom right corner
     -lock the work using lock button in bottom left
 
-Live link :
+Live link : https://chat-flow-app.vercel.app/ 
