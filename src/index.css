@@ -1,0 +1,60 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.flow-builder {
+  display: flex;
+  height: 100vh;
+}
+
+.nodes-panel {
+  padding: 20px;
+  background: #f4f4f4;
+  border-right: 1px solid #ddd;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-area {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.settings-panel {
+  padding: 20px;
+  background: #f4f4f4;
+  border-left: 1px solid #ddd;
+  width: 300px;
+}
+
+.save-panel {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
