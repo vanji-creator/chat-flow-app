@@ -73,7 +73,9 @@ const Flow = () => {
           nodeTypes={nodeTypes}
           onDragOver={onDragOver}
           onDrop={onDrop}
-          fitView
+          defaultViewport={{ x: 0, y: 0, zoom: 0.8 }}
+          minZoom={0.5}
+          maxZoom={2}
           className="bg-background"
           proOptions={{ hideAttribution: true }}
         >
@@ -84,8 +86,9 @@ const Flow = () => {
             size={1}
           />
           <Controls
-            className="!bg-surface !border-border !fill-text-primary !shadow-xl rounded-xl overflow-hidden"
+            className="!bg-surface/90 !backdrop-blur-md !border-border !fill-text-primary !shadow-2xl rounded-xl overflow-hidden m-4"
             position="bottom-left"
+            showInteractive={false}
           />
         </ReactFlow>
       </div>
