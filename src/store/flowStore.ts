@@ -137,7 +137,7 @@ const useFlowStore = create<FlowState>((set, get) => ({
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Determine next node
-            const outgoers = getOutgoers(currentNode, nodes, edges);
+            const outgoers: Node[] = getOutgoers(currentNode, nodes, edges);
 
             if (outgoers.length === 0) {
                 currentNode = undefined; // End of flow
