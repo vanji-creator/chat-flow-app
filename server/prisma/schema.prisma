@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Flow {
+  id        String   @id @default(uuid())
+  name      String
+  nodes     Json
+  edges     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  executions Execution[]
+}
+
+model Execution {
+  id          String    @id @default(uuid())
+  flowId      String
+  flow        Flow      @relation(fields: [flowId], references: [id])
+  status      String    // 'running', 'completed', 'failed'
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  logs        String[]
+  findings    Finding[]
+}
+
+model Finding {
+  id          String    @id @default(uuid())
+  executionId String
+  execution   Execution @relation(fields: [executionId], references: [id])
+  severity    String    // 'Critical', 'High', 'Medium', 'Low', 'Info'
+  title       String
+  description String
+  host        String?
+  port        Int?
+  createdAt   DateTime  @default(now())
+}
