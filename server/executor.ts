@@ -221,7 +221,7 @@ export const executeFlow = async (executionId: string, nodes: Node[], edges: Edg
                 currentNode = undefined;
             } else if (outgoers.length === 1) {
                 const edge = outgoers[0];
-                currentNode = nodes.find(n => n.id === edge.target);
+                currentNode = edge ? nodes.find(n => n.id === edge.target) : undefined;
             } else {
                 // Branching Logic
                 if (currentNode.type === 'condition') {
@@ -236,7 +236,7 @@ export const executeFlow = async (executionId: string, nodes: Node[], edges: Edg
                 } else {
                     // Default to first
                     const edge = outgoers[0];
-                    currentNode = nodes.find(n => n.id === edge.target);
+                    currentNode = edge ? nodes.find(n => n.id === edge.target) : undefined;
                 }
             }
         }

@@ -45,7 +45,9 @@ export const runPortScan = (target: string): Promise<any> => {
                             // Format: Port/State/Protocol/Owner/Service/RPC/Version/
                             // Example: 22/open/tcp//ssh//OpenSSH 9.6p1 Ubuntu 3ubuntu13.14 (Ubuntu Linux; protocol 2.0)/
                             const parts = entry.split('/');
-                            const port = parseInt(parts[0]);
+                            const portStr = parts[0];
+                            if (!portStr) return;
+                            const port = parseInt(portStr);
                             const state = parts[1];
                             const protocol = parts[2];
                             const service = parts[4] || 'unknown';
